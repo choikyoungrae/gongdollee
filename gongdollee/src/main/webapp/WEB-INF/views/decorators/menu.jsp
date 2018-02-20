@@ -6,11 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>메뉴</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 /* modal 시작 */
 @import url(http://fonts.googleapis.com/css?family=Roboto);
@@ -379,7 +378,7 @@
         <c:if test="${sessionID != 'admin' }">
         <ul class="nav navbar-nav navbar-right">          
 			<li><a href = "#" id ="sign" data-toggle="modal" data-target="#login-modal">내정보관리</a></li>
-			li><a href = "logout" id ="logout">로그아웃</a></li>
+			<li><a href = "logout" id ="logout">로그아웃</a></li>
         </ul>
         </c:if>
 	</div><!-- /.nav-collapse -->
@@ -392,7 +391,6 @@
 <!-- 자바스크립트 -->
 <script>
   $(document).ready(function(){
-	  alert('sessionID : <%=sessionID%>')
     $("#overlapID").click(function(){
         overlapID();        
     });
