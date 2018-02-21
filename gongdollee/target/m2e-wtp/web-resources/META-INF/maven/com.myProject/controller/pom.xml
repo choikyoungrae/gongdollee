@@ -153,7 +153,14 @@
          <version>14</version>
          <scope>system</scope>
          <systemPath> ${basedir}/src/main/webapp/WEB-INF/lib/ojdbc14.jar</systemPath>
-      </dependency>      
+      </dependency>    
+      
+      <!-- Java Mail API -->
+      <dependency>
+       <groupId>javax.mail</groupId>
+       <artifactId>mail</artifactId>
+       <version>1.4.3</version>
+      </dependency>   
 	</dependencies>
     <build>
         <plugins>
