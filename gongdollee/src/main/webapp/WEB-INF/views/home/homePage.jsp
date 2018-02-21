@@ -48,54 +48,46 @@
 	     }else if(msg == "joinFail"){
 		   alert('회원가입에 실패하였습니다.');
 	     }else if(msg == "overlap"){
-			 isOverlap();
+	    	 alert("이 아이디는 사용할 수 없습니다.");
+	    	  $(window).on('load',function(){
+	    		$('#joinUs-modal').modal('show');
+	    	  });
+	    	  $('#name').val('${name}');  
+	          $('#pw').val('${pw}');
+	    	  $('#chkPW').val('${chkPW}');
+	    	  $('#email').val('${email}');
+	    	  $("#year").val("${year}").attr("selected", "selected");
+	    	  $("#month").val("${month}").attr("selected", "selected");
+	    	  $("#day").val("${day}").attr("selected", "selected");
+	    	  $("#gender").val("${gender}").attr("checked", "checked");
+	    	  <c:forEach items="${preference}" var="preference">
+	    	    if(${preference.value == true}){
+	    	 	 $('input:checkbox[id="${preference.key}"]').attr("checked", true); 
+	    	    }
+	    	  </c:forEach> 
 	 	 }else if(msg == "notOverlap"){
-	 	     isntOverlap();
+	 		alert("이 아이디는 사용할 수 있습니다.");
+	    	  $(window).on('load',function(){
+	    	        $('#joinUs-modal').modal('show');
+	    	  });
+	    	  $('#name').val('${name}');
+	    	  $('#id').val('${id}'); 
+	    	  $('#pw').val('${pw}');
+	    	  $('#chkPW').val('${chkPW}');
+	    	  $('#email').val('${email}');
+	    	  $("#year").val("${year}").attr("selected", "selected");
+	    	  $("#month").val("${month}").attr("selected", "selected");
+	    	  $("#day").val("${day}").attr("selected", "selected");
+	    	  $("#gender").val("${gender}").attr("checked", "checked");
+	    	  <c:forEach items="${preference}" var="preference">
+	    	    if(${preference.value == true}){
+	    		  $('input:checkbox[id="${preference.key}"]').attr("checked", true);
+	    	    }
+	    	  </c:forEach> 	 
+	    	  $('#id').attr("readonly",true);
+	    	  $('#checkOverlap').val("checked");
 	 	 }
        });
-       
-       function isOverlap(){
-    	  alert("이 아이디는 사용할 수 없습니다.");
-    	  $(window).on('load',function(){
-    		$('#joinUs-modal').modal('show');
-    	  });
-    	  $('#name').val('${name}');  
-          $('#pw').val('${pw}');
-    	  $('#chkPW').val('${chkPW}');
-    	  $('#email').val('${email}');
-    	  $("#year").val("${year}").attr("selected", "selected");
-    	  $("#month").val("${month}").attr("selected", "selected");
-    	  $("#day").val("${day}").attr("selected", "selected");
-    	  $("#gender").val("${gender}").attr("checked", "checked");
-    	  <c:forEach items="${preference}" var="preference">
-    	    if(${preference.value == true}){
-    	 	 $('input:checkbox[id="${preference.key}"]').attr("checked", true); 
-    	    }
-    	  </c:forEach> 	 
-      }  
-    	  
-      function isntOverlap(){
-    	  alert("이 아이디는 사용할 수 있습니다.");
-    	  $(window).on('load',function(){
-    	        $('#joinUs-modal').modal('show');
-    	  });
-    	  $('#name').val('${name}');
-    	  $('#id').val('${id}'); 
-    	  $('#pw').val('${pw}');
-    	  $('#chkPW').val('${chkPW}');
-    	  $('#email').val('${email}');
-    	  $("#year").val("${year}").attr("selected", "selected");
-    	  $("#month").val("${month}").attr("selected", "selected");
-    	  $("#day").val("${day}").attr("selected", "selected");
-    	  $("#gender").val("${gender}").attr("checked", "checked");
-    	  <c:forEach items="${preference}" var="preference">
-    	    if(${preference.value == true}){
-    		  $('input:checkbox[id="${preference.key}"]').attr("checked", true);
-    	    }
-    	  </c:forEach> 	 
-    	  $('#id').attr("readonly",true);
-    	  $('#checkOverlap').val("checked");
-      }
    </script>
 </body>
 </html>
