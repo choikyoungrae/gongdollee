@@ -133,7 +133,7 @@ public class HomeController {
 		IUserDAO dao = sqlSession.getMapper(IUserDAO.class);		
 		int result = dao.overlapID(id);
 		
-		System.out.println(result);
+		System.out.println(request.getParameter("gender"));
 		
 		String msg = null;
 		
@@ -143,7 +143,6 @@ public class HomeController {
 			msg = "notOverlap";
 		}
 		
-		System.out.println(msg);
 		model.addAttribute("msg", msg);
 		
 		model.addAttribute("name", request.getParameter("name"));
@@ -173,7 +172,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpRequest request, HttpSession session) {
+	public String logout(HttpServletRequest request, HttpSession session) {
 		
 		session.invalidate();
 		

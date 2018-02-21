@@ -6,11 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>메뉴</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 /* modal 시작 */
 @import url(http://fonts.googleapis.com/css?family=Roboto);
@@ -224,6 +223,22 @@
   height:33px;
 }
 /* 회원가입 modal 끝 */
+/* 아이디 찾기 modal*/
+#findIdEmail{
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+/*아이디 찾기 modal 끝*/
 </style>
 </head>
 
@@ -264,7 +279,7 @@
 		    <input type="submit" name="login" class="login loginmodal-submit" value="로그인">
 		  </form>					
 		  <div class="login-help">
-		    <a href="#">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="#">비밀번호찾기</a>
+		    <a href = "#" id ="sign" data-toggle="modal" data-target="#findID">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="#">비밀번호찾기</a>
 		  </div>
 	    </div>
       </div>
@@ -340,7 +355,7 @@
               <span class="birth">일</span>
             </div><br>
             <div>
-              <label for="gender" class="joinUsmodal-title">성별</label>
+              <label for="" class="joinUsmodal-title">성별</label>
               <input type="radio" name="gender" id="gender" value="1">남&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="radio" name="gender" id="gender" value="2">여
             </div>
@@ -379,7 +394,7 @@
         <c:if test="${sessionID != 'admin' }">
         <ul class="nav navbar-nav navbar-right">          
 			<li><a href = "#" id ="sign" data-toggle="modal" data-target="#login-modal">내정보관리</a></li>
-			li><a href = "logout" id ="logout">로그아웃</a></li>
+			<li><a href = "logout" id ="logout">로그아웃</a></li>
         </ul>
         </c:if>
 	</div><!-- /.nav-collapse -->
@@ -388,11 +403,26 @@
 	%>
   </nav>
 </div>
-
+<div class="modal fade" id="findID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+	    <div class="loginmodal-container">
+		  <h1>로그인</h1><br>
+		  <form name="loginForm" action="findID" onsubmit="return checkLoginForm()" method="POST">
+            <label for="findIdName" style="font-size: 15px;">이름</label>
+		    <input type="text" name="findIdName" id=""findIdName"" placeholder="NAME">
+            <label for="findIdEmail" style="font-size: 15px;">이메일</label>
+		    <input type="password" name="findIdEmail" id="findIdEmail" placeholder="EMAIL">
+		    <input type="submit" name="findIdSubmit" class="login loginmodal-submit" value="로그인">
+		  </form>					
+		  <div class="login-help">
+		    <a href="#">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="#">비밀번호찾기</a>
+		  </div>
+	    </div>
+      </div>
+    </div>
 <!-- 자바스크립트 -->
 <script>
   $(document).ready(function(){
-	  alert('sessionID : <%=sessionID%>')
     $("#overlapID").click(function(){
         overlapID();        
     });
@@ -407,7 +437,7 @@
 	  var year = document.getElementById("year").value;
 	  var month = document.getElementById("month").value;
 	  var day = document.getElementById("day").value;
-	  var gender = document.getElementById("gender").value;
+	  var gender = joinForm.gender.value
 	  var preferences = [joinForm.musical.checked, joinForm.classic.checked, joinForm.theater.checked, joinForm.opera.checked,
           joinForm.ballet.checked, joinForm.etc.checked];
 	  var musical = true;
