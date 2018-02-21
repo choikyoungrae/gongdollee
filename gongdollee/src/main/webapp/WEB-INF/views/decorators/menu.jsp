@@ -331,7 +331,10 @@
             <div>
               <label for="email" class="joinUsmodal-title">이메일</label>
               <input type="text" name="email" id="email" placeholder="EMAIL">
-            </div>
+            </div>            
+            <div class="joinUsmodal-warning">
+                                비밀번호 찾기는 gmail밖에 지원이 안됩니다. 반드시 gmail을 써주세요
+            </div><br>
             <div id="userBirth">
               <label for="" class="joinUsmodal-title">생년월일</label>
               <select name="year" id="year">
