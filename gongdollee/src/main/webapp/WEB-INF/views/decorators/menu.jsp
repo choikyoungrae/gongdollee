@@ -474,7 +474,7 @@
 	  var year = document.getElementById("year").value;
 	  var month = document.getElementById("month").value;
 	  var day = document.getElementById("day").value;
-	  var gender = joinForm.gender.value
+	  var gender = joinForm.gender.value;
 	  var preferences = [joinForm.musical.checked, joinForm.classic.checked, joinForm.theater.checked, joinForm.opera.checked,
           joinForm.ballet.checked, joinForm.etc.checked];
 	  var musical = true;
