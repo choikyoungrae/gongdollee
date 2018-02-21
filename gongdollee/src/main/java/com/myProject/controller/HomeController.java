@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpRequest;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +47,9 @@ public class HomeController {
 	public void setDao(UserDAO dao) {
 		this.dao = dao;
 	}
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -80,6 +87,116 @@ public class HomeController {
 			String msg = "loginFail";
 			model.addAttribute("msg", msg);
 		}
+		
+		return "/home/homePage";
+	}
+	
+	@RequestMapping(value="findID", method=RequestMethod.POST)
+	public String findID(HttpServletRequest request, Model model) {
+		
+		UserDTO dto = new UserDTO();
+		
+		String name = request.getParameter("findIdName");
+		String email = request.getParameter("findIdEmail");
+		
+		IUserDAO dao = sqlSession.getMapper(IUserDAO.class);
+		dto = dao.userFindID(name, email);
+		
+		String id = null;		
+		String msg = null;
+		
+		if(dto == null) {
+			msg = "failFidingID";
+			model.addAttribute("msg", msg);
+		}else {
+			msg ="successFindingID";
+			id = dto.getId();
+			model.addAttribute("msg", msg);
+			model.addAttribute("id", id);			
+		}
+		
+		
+		return "/home/homePage";
+	}
+	
+	@RequestMapping(value="findPW", method=RequestMethod.POST)
+	public String findPW(HttpServletRequest request, Model model) {
+		
+		UserDTO dto = new UserDTO();
+		
+		String name = request.getParameter("findPWName");
+		String id = request.getParameter("findPWID");
+		System.out.println("userFindPW 시작");
+		IUserDAO dao = sqlSession.getMapper(IUserDAO.class);
+		dto = dao.userFindPW(name, id);
+		System.out.println("userFindPW 끝");
+			
+		String msg = null;
+		
+		String pw = null;
+		
+		StringBuffer makingPW = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 8; i++) {
+		    int rIndex = rnd.nextInt(3);
+		    switch (rIndex) {
+		    case 0:
+		        // a-z
+		    	makingPW.append((char) ((int) (rnd.nextInt(26)) + 97));
+		        break;
+		    case 1:
+		        // A-Z
+		    	makingPW.append((char) ((int) (rnd.nextInt(26)) + 65));
+		        break;
+		    case 2:
+		        // 0-9
+		    	makingPW.append((rnd.nextInt(10)));
+		        break;
+		    }
+		}
+		
+		if(dto == null) {
+			msg = "failFidingPW";
+			model.addAttribute("msg", msg);
+		}else {
+			int result = 0;
+			String newPW = makingPW.toString();
+			System.out.println("비밀번호(HOME) : " + newPW);
+			System.out.println("changingPW 시작");
+			result = dao.changingPW(newPW, id);
+			System.out.println("changingPW 끝");
+			
+			if(result != 0) {
+				String setfrom = "ckr567@gmail.com";         
+			    String tomail  = dto.getEmail();     // 받는 사람 이메일
+			    System.out.println("받는사람 : " + tomail);
+			    String title   = "(gongdollee)새로운 비밀번호입니다.";      // 제목
+			    String content = newPW.toString();    // 내용
+			   
+			    try {
+			      MimeMessage message = mailSender.createMimeMessage();
+			      MimeMessageHelper messageHelper 
+			                        = new MimeMessageHelper(message, true, "UTF-8");
+			 
+			      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+			      messageHelper.setTo(tomail);     // 받는사람 이메일
+			      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			      messageHelper.setText(content);  // 메일 내용
+			     
+			      mailSender.send(message);
+			    } catch(Exception e){
+			      System.out.println(e);
+			    }
+			    
+			    msg = "successFidingPW";
+			    model.addAttribute("msg", msg);
+			}else {
+				msg="failFidingPW2";
+			    model.addAttribute("msg", msg);
+			}
+						
+		}
+		
 		
 		return "/home/homePage";
 	}
