@@ -239,6 +239,22 @@
   -moz-box-sizing: border-box;
 }
 /*아이디 찾기 modal 끝*/
+/*비밀번호 찾기 modal*/
+#findPWID{
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+/*비밀번호 찾기 modal 끝*/
 </style>
 </head>
 
@@ -246,7 +262,7 @@
 <!-- header -->
 <header>
 <div>
-  <nav class="navbar-inverse">
+  <nav class="navbar-inverse">  
     <div class="navbar-header">
 		<a class="navbar-brand" href="homePage">Gongdollee</a>
 	</div>
@@ -279,7 +295,8 @@
 		    <input type="submit" name="login" class="login loginmodal-submit" value="로그인">
 		  </form>					
 		  <div class="login-help">
-		    <a href = "#" id ="sign" data-toggle="modal" data-target="#findID">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="#">비밀번호찾기</a>
+		    <a href = "#" id ="sign" data-toggle="modal" data-target="#findID">아이디찾기</a>&nbsp;&nbsp;&nbsp;
+		    <a href = "#" id ="sign" data-toggle="modal" data-target="#findPW">비밀번호찾기</a>
 		  </div>
 	    </div>
       </div>
@@ -314,7 +331,10 @@
             <div>
               <label for="email" class="joinUsmodal-title">이메일</label>
               <input type="text" name="email" id="email" placeholder="EMAIL">
-            </div>
+            </div>            
+            <div class="joinUsmodal-warning">
+                                비밀번호 찾기는 gmail밖에 지원이 안됩니다. 반드시 gmail을 써주세요
+            </div><br>
             <div id="userBirth">
               <label for="" class="joinUsmodal-title">생년월일</label>
               <select name="year" id="year">
@@ -406,16 +426,33 @@
 <div class="modal fade" id="findID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
       <div class="modal-dialog">
 	    <div class="loginmodal-container">
-		  <h1>로그인</h1><br>
-		  <form name="loginForm" action="findID" onsubmit="return checkLoginForm()" method="POST">
+		  <h1>아이디찾기</h1><br>
+		  <form name="findIDForm" action="findID" onsubmit="return checkFindIDForm()" method="POST">
             <label for="findIdName" style="font-size: 15px;">이름</label>
-		    <input type="text" name="findIdName" id=""findIdName"" placeholder="NAME">
+		    <input type="text" name="findIdName" id="findIdName" placeholder="NAME">
             <label for="findIdEmail" style="font-size: 15px;">이메일</label>
-		    <input type="password" name="findIdEmail" id="findIdEmail" placeholder="EMAIL">
-		    <input type="submit" name="findIdSubmit" class="login loginmodal-submit" value="로그인">
+		    <input type="text" name="findIdEmail" id="findIdEmail" placeholder="EMAIL">
+		    <input type="submit" name="findIdSubmit" class="login loginmodal-submit" value="아이디찾기">
 		  </form>					
 		  <div class="login-help">
-		    <a href="#">아이디찾기</a>&nbsp;&nbsp;&nbsp;<a href="#">비밀번호찾기</a>
+		    &nbsp;&nbsp;&nbsp;
+		  </div>
+	    </div>
+      </div>
+    </div>
+<div class="modal fade" id="findPW" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+	    <div class="loginmodal-container">
+		  <h1>비밀번호찾기</h1><br>
+		  <form name="findPWForm" action="findPW" onsubmit="return checkFindPWForm()" method="POST">
+            <label for="findPWName" style="font-size: 15px;">이름</label>
+		    <input type="text" name="findPWName" id="findPWName" placeholder="NAME">
+            <label for="findPWEmail" style="font-size: 15px;">아이디</label>
+		    <input type="text" name="findPWID" id="findPWID" placeholder="ID">
+		    <input type="submit" name="findPWSubmit" class="login loginmodal-submit" value="비밀번호찾기">
+		  </form>					
+		  <div class="login-help">
+		    &nbsp;&nbsp;&nbsp;
 		  </div>
 	    </div>
       </div>
@@ -491,6 +528,32 @@
 		  isValid = false;
 	  } else if(loginForm.loginPW.value == ""){
 		  alert("비밀번호를 꼭 입력해주세요.")
+		  isValid = false;
+	  } 
+	  
+	  return isValid;
+  }
+  
+  function checkFindIDForm(){
+	  var isValid = true;
+	  if(findIDForm.findIdName.value == ""){
+		  alert("이름을 꼭 입력해주세요.");
+		  isValid = false;
+	  } else if(findIDForm.findIdEmail.value == ""){
+		  alert("이메일을 꼭 입력해주세요.")
+		  isValid = false;
+	  } 
+	  
+	  return isValid;
+  }
+  
+  function checkFindPWForm(){
+	  var isValid = true;
+	  if(findPWForm.findPWName.value == ""){
+		  alert("이름을 꼭 입력해주세요.");
+		  isValid = false;
+	  } else if(findPWForm.findPWID.value == ""){
+		  alert("아이디를 꼭 입력해주세요.")
 		  isValid = false;
 	  } 
 	  

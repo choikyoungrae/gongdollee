@@ -5,8 +5,20 @@
 
 <mapper namespace = "com.myProject.DAO.IUserDAO">
   <select id="userInfoDAO" resultType="com.myProject.DTO.UserDTO">
-		SELECT * FROM PROJECTUSER WHERE ID = #{param1}
+	SELECT * FROM PROJECTUSER WHERE ID = #{param1}
   </select>
+  
+  <select id="userFindID" resultType="com.myProject.DTO.UserDTO">
+    SELECT * FROM PROJECTUSER WHERE NAME = #{param1} AND EMAIL = #{param2}
+  </select>
+  
+  <select id="userFindPW" resultType="com.myProject.DTO.UserDTO">
+    SELECT * FROM PROJECTUSER WHERE NAME = #{param1} AND id = #{param2}
+  </select>
+  
+  <update id="changingPW">
+    UPDATE PROJECTUSER SET PASSWORD = #{param1} WHERE ID = #{param2}
+  </update>
   
   <insert id="joinDAO">
     INSERT INTO PROJECTUSER (NAME, ID, PASSWORD, BIRTHDAY, EMAIL, GENDER, PREFERENCE) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})

@@ -11,5 +11,11 @@ public interface IUserDAO {
 	public int overlapID(String id);
 	
 	public UserDTO userInfoDAO(String id);
+	
+	public UserDTO userFindID(String name, String email);
+	
+	public UserDTO userFindPW(String name, String id);
+	
+	public int changingPW(String newPW, String id);
 
 }

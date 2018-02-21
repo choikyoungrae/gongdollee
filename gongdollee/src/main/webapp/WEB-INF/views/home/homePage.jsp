@@ -28,7 +28,6 @@
      data-jarallax-video="https://www.youtube.com/watch?v=T46rfacbMlU"> 
 </div>
     <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- <script src="https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js"></script> -->
     <script src="https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js"></script>
     <script src="https://mdbootstrap.com/previews/docs/latest/js/jarallax.js"></script>
     <script src="https://mdbootstrap.com/previews/docs/latest/js/jarallax-video.js"></script>
@@ -43,7 +42,17 @@
    	    	 alert("로그인에 성공하였습니다.\n${name}님 어서오세요");
    	     }else if(msg == "loginFail"){
    	    	 alert("로그인에 실패하였습니다.\n아이디와 비밀번호를 확인해주세요.");
-   	     }else if(msg == "joinSuccess"){
+   	     }else if(msg == "failFidingID"){
+	 		 alert("조건을 만족하는 아이디가 없습니다.");
+	 	 }else if(msg == "successFindingID"){
+	 		 alert("조건을 만족하는 아이디를 찾았습니다.\n아이디는 '${id}' 입니다.");
+	 	 }else if(msg == "failFidingPW"){
+	 		 alert('해당 관련 아이디를 찾지 못했습니다.\n아이디 찾기를 해주세요');
+	 	 }else if(msg == "successFidingPW"){
+	 		 alert('비밀번호를 변경했습니다\n변경한 비밀번호는 가입시 입력한 gmail로 발송되었습니다.');
+	 	 }else if(msg == "successFidingPW2"){
+	 		 alert('비밀번호를 변경하는 중에 에러가 생겼습니다\n다시 한번 시도해주세요');
+	 	 }else if(msg == "joinSuccess"){
 		   alert('회원가입에 성공하였습니다.');
 	     }else if(msg == "joinFail"){
 		   alert('회원가입에 실패하였습니다.');
@@ -59,7 +68,7 @@
 	    	  $("#year").val("${year}").attr("selected", "selected");
 	    	  $("#month").val("${month}").attr("selected", "selected");
 	    	  $("#day").val("${day}").attr("selected", "selected");
-	    	  $("#gender").val("${gender}").attr("checked", "checked");
+	    	  $("input:radio[name='gender']:radio[value='${gender}']").attr("checked", "checked");
 	    	  <c:forEach items="${preference}" var="preference">
 	    	    if(${preference.value == true}){
 	    	 	 $('input:checkbox[id="${preference.key}"]').attr("checked", true); 

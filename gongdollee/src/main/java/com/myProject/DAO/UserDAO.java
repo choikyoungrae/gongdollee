@@ -100,4 +100,56 @@ public class UserDAO implements IUserDAO{
 		return dto;
 	}
 
+
+
+	@Override
+	public UserDTO userFindID(String name, String email) {
+		
+		UserDTO dto;
+		
+		String query = "select * from projectuser where name=" + name + " and email=" + email;
+		
+		dto = this.template.queryForObject(query, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+		
+		return dto;
+	}
+
+
+
+	@Override
+	public UserDTO userFindPW(String name, String id) {
+
+        UserDTO dto;
+		
+		String query = "select * from projectuser where name=" + name + " and id=" + id;
+		
+		dto = this.template.queryForObject(query, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+		
+		return dto;
+	}
+
+
+
+	@Override
+	public int changingPW(final String newPW, final String id) {
+        int result = 0 ;
+        
+        System.out.println("비밀번호(DAO) : " + newPW);
+		
+		result = this.template.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				String query = "UPDATE PROJECTUSER SET PASSWORD = ? WHERE ID = ?";
+				PreparedStatement pstmt = con.prepareStatement(query);
+				pstmt.setString(1, newPW);
+				pstmt.setString(2, id);
+				
+				return pstmt;
+			}
+		});
+		
+		return result;
+	}
+
 }
